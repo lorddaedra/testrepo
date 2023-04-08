@@ -12,13 +12,23 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Run read-yaml action
-        id: openapi
+      - name: Parse openapi.yaml version
+        id: "parse-openapi"
         uses: jbutcher5/read-yaml@main
         with:
           file: './openapi.yaml'
           key-path: '["info", "version"]'
 
       - name: Display OpenAPI version
-        run: echo "${{ steps.openapi.outputs.data }}"
+        run: echo "${{ steps.parse-openapi.outputs.data }}"
+
+      - name: Add tag
+        id: "add-tag"
+        uses: rickstaa/action-create-tag@v1
+        with:
+          tag: "{{ steps.parse-openapi.outputs.data }}"
+          tag_exists_error: false
+
+      - name: Show tag info
+        run: echo "Tag already present: ${{ steps.add-tag.outputs.tag_exists }}"
 
