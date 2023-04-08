@@ -29,6 +29,3 @@ jobs:
           tag: "{{ steps.parse-openapi.outputs.data }}"
           tag_exists_error: false
 
-      - name: Show tag info
-        run: echo "Tag already present: ${{ steps.add-tag.outputs.tag_exists }}"
-
