@@ -26,6 +26,6 @@ jobs:
         id: "add-tag"
         uses: rickstaa/action-create-tag@v1
         with:
-          tag: "{{ steps.parse-openapi.outputs.data }}"
+          tag: "${{ steps.parse-openapi.outputs.data }}"
           tag_exists_error: false
 
